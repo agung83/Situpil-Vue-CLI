@@ -90,12 +90,25 @@ export default {
   },
 
   methods: {
-    async login() {
+    login() {
       var data = new FormData();
       data.append("nohp", this.formlogin.nohp);
       data.append("password", this.formlogin.password);
+      data.append("android_id", "2vuejs");
+      data.append("device_name", "motorolla asus");
+      data.append("fcmregid", "1xxxxcssssasvue");
+      data.append("fcminstance", "wkwkwkkwkwland");
+      // console.log(data);
 
-      console.log(data);
+      this.$store
+        .dispatch("login", data)
+        .then((response) => {
+          console.log(response);
+          this.$router.push({ name: "Home" });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

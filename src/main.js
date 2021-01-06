@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import jwt_decode from 'jwt-decode'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap'
 import 'popper.js'
@@ -11,8 +12,10 @@ import { setHeaderToken } from "./headeraxios/auth";
 
 var token = localStorage.getItem('token');
 
-if (token) {
-  setHeaderToken(token);
+if (token) { 
+  const datauser = jwt_decode(token)
+  store.commit('isiDataUser', datauser)
+  setHeaderToken(token) 
 }
 
 
@@ -37,5 +40,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

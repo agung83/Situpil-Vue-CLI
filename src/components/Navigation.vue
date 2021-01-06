@@ -54,14 +54,27 @@
               >Blog</router-link
             >
           </li>
-          <li class="nav-item ml-4">
-            <router-link
-              class="nav-link font-weight-bold"
-              style="font-size: 19px; color: #ff8e7e"
-              :to="{ name: 'Login' }"
-              >Masuk</router-link
-            >
-          </li>
+
+          <template v-if="apakahuserlogin == false">
+            <li class="nav-item ml-4">
+              <router-link
+                class="nav-link font-weight-bold"
+                style="font-size: 19px; color: #ff8e7e"
+                :to="{ name: 'Login' }"
+                >Masuk</router-link
+              >
+            </li>
+          </template>
+          <template v-else>
+            <li class="nav-item ml-4">
+              <a
+                class="nav-link font-weight-bold"
+                style="font-size: 19px; color: #ff8e7e"
+                @click="logout()"
+                >Logout</a
+              >
+            </li>
+          </template>
         </ul>
       </div>
     </div>
@@ -69,5 +82,21 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters({
+      apakahuserlogin: "apakahuserlogin",
+      datauserlogin: "datauserlogin",
+    }),
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
+    },
+  },
+};
 </script>
