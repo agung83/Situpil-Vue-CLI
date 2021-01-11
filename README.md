@@ -1,4 +1,4 @@
-# situpil
+# SISTEM INFORMASI TUKANG TERAMPIL
 
 ## Project setup
 ```

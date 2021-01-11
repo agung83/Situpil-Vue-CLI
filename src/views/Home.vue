@@ -9,6 +9,15 @@
     </div>
 
     <div class="container mt-5">
+      <template v-if="this.$store.getters.apakahuserlogin">
+        <div class="alert alert-warning" style="border-radius: 8px">
+          {{
+            "Selamat Datang" +
+            "    " +
+            this.$store.getters.dataloginuser.data_auth.nama
+          }}
+        </div>
+      </template>
       <h1>List Keahlian</h1>
 
       <div class="form-group">
@@ -54,11 +63,24 @@
                   >
                     Detail
                   </button>
-                  <router-link
+                  <!-- ini contoh mengirim parameter di url dengan query string -->
+                  <!-- <router-link
                     class="btn btn-sm btn-outline-primary"
                     :to="{
                       name: 'tukang',
                       query: {
+                        idkeahlian: pecah.id_keahlian,
+                        keahlian: pecah.nama_keahlian,
+                      },
+                    }"
+                    >Lihat</router-link -->
+
+                  <!-- dan dibawah ini mengirim parameter ke url dengan params kalau mengunakan param harus di defenisikan di route, silahkan liat contoh di router -->
+                  <router-link
+                    class="btn btn-sm btn-outline-primary"
+                    :to="{
+                      name: 'tukang',
+                      params: {
                         idkeahlian: pecah.id_keahlian,
                         keahlian: pecah.nama_keahlian,
                       },
@@ -118,11 +140,10 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
-      keahlian: {},
+      keahlian: [],
       searchtrue: [],
       pesansearch: null,
       limitdata: 6,
@@ -131,6 +152,11 @@ export default {
 
   mounted() {
     this.datakeahlian();
+
+    let number = 1000000;
+    let uang = this.rupiah.convert(number);
+
+    console.log(uang);
   },
 
   methods: {
@@ -146,7 +172,7 @@ export default {
 
       var searching = this.searchtrue;
 
-      var response = await axios.get(
+      var response = await this.axios.get(
         `api_situpil/api/getkeahlian?searching=${searching}&limit=${limit}`
       );
 
@@ -155,6 +181,7 @@ export default {
         : (this.pesansearch = response.data.messages);
 
       this.keahlian = response.data.data;
+      console.log(this.keahlian);
     },
 
     detail(id) {

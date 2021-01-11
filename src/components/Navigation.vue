@@ -66,14 +66,30 @@
             </li>
           </template>
           <template v-else>
-            <li class="nav-item ml-4">
+            <li class="nav-item dropdown ml-4">
               <a
-                class="nav-link font-weight-bold"
                 style="font-size: 19px; color: #ff8e7e"
-                @click="logout()"
-                >Logout</a
+                class="nav-link dropdown-toggle font-weight-bold"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
+                {{ dataloginuser.data_auth.nama }}
+              </a>
+              <div
+                class="dropdown-menu"
+                style="border-radius: 10px"
+                aria-labelledby="navbarDropdown"
+              >
+                <a class="dropdown-item" href="#">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" @click="logout()">Logout</a>
+              </div>
             </li>
+            <li class="nav-item"></li>
           </template>
         </ul>
       </div>
@@ -85,9 +101,10 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
+    //computed akan merender data secara langsung beda dengan mounted
     ...mapGetters({
       apakahuserlogin: "apakahuserlogin",
-      datauserlogin: "datauserlogin",
+      dataloginuser: "dataloginuser",
     }),
   },
 

@@ -104,7 +104,11 @@ export default {
         .dispatch("login", data)
         .then((response) => {
           console.log(response);
-          this.$router.push({ name: "Home" });
+          if (response.data.success == false) {
+            this.$toasted.error(response.data.messages, { duration: 3000 });
+          } else {
+            this.$router.push({ name: "Home" });
+          }
         })
         .catch((error) => {
           console.log(error);
