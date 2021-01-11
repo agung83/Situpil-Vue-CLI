@@ -62,7 +62,8 @@
             class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray"
           >
             <strong class="d-block text-gray-dark">Tempat Tanggal Lahir</strong>
-            {{ pecah.tempat_lahir }} {{ pecah.tgl_lahir }}
+            {{ pecah.tempat_lahir }} ,
+            {{ pecah.tgl_lahir | moment("d MMMM yyyy") }}
           </p>
         </div>
         <div class="media text-muted pt-3">
@@ -136,7 +137,7 @@
     <b-modal
       ref="modalbiografi"
       size="lg"
-      @ok="tes()"
+      @ok="booking()"
       :title="`BIOGRAFI ${biografi.nama_tukang}`"
     >
       <div class="form-row">
@@ -240,12 +241,11 @@
 </template>
 
 <script>
-import axios from "axios";
-
 //JIKA MEMAKAI JQUERY SILAHKAN IMPORT SPEERTI DI BAWAH INI
 // import jQuery from "jquery";
 // const $ = jQuery;
 // window.$ = $;
+
 export default {
   data() {
     return {
@@ -257,15 +257,33 @@ export default {
   },
 
   mounted() {
-    var namakeahlian = this.$route.query.keahlian;
+    var namakeahlian = this.$route.params.keahlian;
     this.head = namakeahlian;
 
     this.datatukang();
   },
 
   methods: {
-    tes() {
-      alert("wtf");
+    booking() {
+      console.log(this.biografi.id_tukang);
+      if (this.$store.getters.apakahuserlogin == false) {
+        this.$toasted.info("Mohon Maaf Silahkan Login Dulu Yaaa", {
+          duration: 2000,
+        });
+        setTimeout(() => this.$router.push({ name: "Login" }), 3000);
+      } else {
+        this.$toasted.success("Yuk isi permintaan anda di formulir transaksi", {
+          duration: 2000,
+        });
+        setTimeout(
+          () =>
+            this.$router.push({
+              name: "Transaksi",
+              params: { idtukang: this.biografi.id_tukang },
+            }),
+          3000
+        );
+      }
     },
     //  function di bawah contoh pengambilan nilai dari attribut yang kita buat sendiri dengan mengunakan jquery , dan jangan lupa import jquery dulu seperti di atas
 
@@ -280,7 +298,7 @@ export default {
     async showbiografi() {
       try {
         var id = event.target.getAttribute("tokentukang");
-        var response = await axios.get(
+        var response = await this.axios.get(
           `api_situpil/api/getdetailtukang?idtukang=${id}`
         );
 
@@ -336,8 +354,10 @@ export default {
     async datatukang() {
       var searching = this.searchtukang;
       console.log(searching);
-      var id = this.$route.query.idkeahlian;
-      var response = await axios.get(
+      // var id = this.$route.query.idkeahlian; <= ini digunakan ketika kitam mengoper parameter ke url dengan query string jika memakai params contoh seperti dibawah idkeahlian harus sesuai nama nyaa dengan yang ada di rute
+      var id = this.$route.params.idkeahlian;
+
+      var response = await this.axios.get(
         `api_situpil/api/getkeahlian?idkeahlian=${id}&searchtukang=${searching}`
       );
 

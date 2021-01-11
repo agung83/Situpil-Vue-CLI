@@ -41,7 +41,9 @@ export default{
                         if (response.status == 200) {
                         
                             if (response.data.success == false) {
-                                alert(response.data.messages);
+                                // alert(response.data.messages);
+                                resolve(response)
+                                
                             }else{
                                 const token = response.data.data
                                 localStorage.setItem('token', token);
@@ -54,7 +56,7 @@ export default{
                         }
                         
                     }).catch(function (event) {
-                        alert(event.response.status);
+                        // alert(event.response.status);
 
                         commit('reset_user')
                         localStorage.removeItem('token')

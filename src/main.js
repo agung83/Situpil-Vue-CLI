@@ -3,12 +3,23 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import jwt_decode from 'jwt-decode'
+
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap'
 import 'popper.js'
 
 
-import { setHeaderToken } from "./headeraxios/auth";
+import Rupiah from 'rupiah-format'
+Vue.prototype.rupiah = Rupiah //kalau seperti ini kita menset package rupiah menjadi global , dengan kata lain semua components baik components,views dan lainya
+
+const moment = require('moment')
+require('moment/locale/id')
+Vue.use(require('vue-moment'),{
+  moment
+});
+
+
 
 var token = localStorage.getItem('token');
 
@@ -25,10 +36,18 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 
+console.log(`Versi Vue => ${Vue.version}`)
 
-import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost/situpil/'
+import { setHeaderToken,sebelumrequesaxios,sesudahresponsedatang } from "./headeraxios/auth";
 
+import Axios from 'axios'
+Axios.defaults.baseURL = 'http://localhost/situpil/'
+
+  sebelumrequesaxios()
+
+  sesudahresponsedatang()
+  
+Vue.prototype.axios = Axios; // set global axios
 
 import VModal from 'vue-js-modal'
 Vue.use(VModal, { dynamicDefault: { draggable: true, resizable: true } })
@@ -37,6 +56,8 @@ import Toasted from 'vue-toasted';
 Vue.use(Toasted)
 
 Vue.config.productionTip = false
+
+
 
 new Vue({
   router,
