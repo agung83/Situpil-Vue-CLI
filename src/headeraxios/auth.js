@@ -22,7 +22,7 @@ export function sebelumrequesaxios(){
 
 export function sesudahresponsedatang(){
   Axios.interceptors.response.use(res => { // INI SEsudah REsponse DIKIRIM KAN AXIOS = INTERCEPTORS.response
-      // console.log(`${res.method} ${res.url}`);
+      // console.log(`${res.method} ${res.url}`);aaaaaaaaaaaaa
         progress.done() // INI UNTUK BERHENTIKAN LOADING
       return res;
     });
