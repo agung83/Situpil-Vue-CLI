@@ -1,8 +1,12 @@
 # SISTEM INFORMASI TUKANG TERAMPIL
 
+## keterangan
+```
+Silahkan Clone Project ini untuk latihan anda , project ini sudah bisa build to production
+```
 ## Project setup
 ```
-npm install
+silahkan ketikan di cmd anda npm install
 ```
 
 ### Compiles and hot-reloads for development

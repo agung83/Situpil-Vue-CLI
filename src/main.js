@@ -11,7 +11,7 @@ import 'popper.js'
 
 
 import Rupiah from 'rupiah-format'
-Vue.prototype.rupiah = Rupiah //kalau seperti ini kita menset package rupiah menjadi global , dengan kata lain semua components baik components,views dan lainya
+Vue.prototype.rupiah = Rupiah //kalau seperti ini kita menset package rupiah menjadi global , dengan kata lain semua components baik components,views dan lainya bisa mengakses rupiah
 
 const moment = require('moment')
 require('moment/locale/id')
@@ -54,6 +54,12 @@ Vue.use(VModal, { dynamicDefault: { draggable: true, resizable: true } })
 
 import Toasted from 'vue-toasted';
 Vue.use(Toasted)
+
+import VueMeta from 'vue-meta'
+Vue.use(VueMeta, {
+  // optional pluginOptions
+  refreshOnceOnNavigation: true
+})
 
 Vue.config.productionTip = false
 

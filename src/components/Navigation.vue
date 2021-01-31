@@ -1,6 +1,6 @@
 <template>
   <nav
-    style="background-color: #f9f1e9"
+    style="background-color: blanchedalmond"
     class="navbar navbar-expand-md navbar-light"
   >
     <div class="container">

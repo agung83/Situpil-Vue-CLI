@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import store from '../store/index'
 import progress from 'nprogress'
 
+progress.configure({ showSpinner: false });
 
 Vue.use(VueRouter)
 

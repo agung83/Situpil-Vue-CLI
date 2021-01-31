@@ -256,6 +256,29 @@ export default {
     };
   },
 
+  metaInfo() {
+    return {
+      title: "Detail Tukang ",
+      titleTemplate: "%s - mantap",
+      meta: [
+        { vmid: "title", name: "title", content: "detail Situkang Mantap" },
+        {
+          vmid: "keywords",
+          name: "keywords",
+          content:
+            "cari tukang terbaik, tukang padang,tukang bersertifikat, tukang sumbar",
+        },
+        {
+          vmid: "description",
+          name: "description",
+          content: "detail para tukang terbaik sumbar",
+        },
+        { vmid: "og:url", property: "og:url", content: "situkang.co.id" },
+        { vmid: "og:image", property: "og:image", content: "riki.jpg" },
+      ],
+    };
+  },
+
   mounted() {
     var namakeahlian = this.$route.params.keahlian;
     this.head = namakeahlian;
@@ -264,6 +287,9 @@ export default {
   },
 
   methods: {
+    tes() {
+      alert("hallo");
+    },
     booking() {
       console.log(this.biografi.id_tukang);
       if (this.$store.getters.apakahuserlogin == false) {

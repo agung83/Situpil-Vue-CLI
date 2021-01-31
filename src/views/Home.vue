@@ -153,10 +153,10 @@ export default {
   mounted() {
     this.datakeahlian();
 
-    let number = 1000000;
-    let uang = this.rupiah.convert(number);
+    // let number = 1000000;
+    // let uang = this.rupiah.convert(number);
 
-    console.log(uang);
+    // console.log(uang);
   },
 
   methods: {
@@ -165,23 +165,28 @@ export default {
     // },
 
     async datakeahlian(tambahlimit) {
-      var limit;
-      tambahlimit == null
-        ? (limit = this.limitdata)
-        : (limit = this.limitdata += tambahlimit);
+      try {
+        var limit;
+        tambahlimit == null
+          ? (limit = this.limitdata)
+          : (limit = this.limitdata += tambahlimit);
 
-      var searching = this.searchtrue;
+        console.log(limit);
+        var searching = this.searchtrue;
 
-      var response = await this.axios.get(
-        `api_situpil/api/getkeahlian?searching=${searching}&limit=${limit}`
-      );
+        var response = await this.axios.get(
+          `api_situpil/api/getkeahlian?searching=${searching}&limit=${limit}`
+        );
 
-      response.data.success == false
-        ? (this.pesansearch = response.data.messages)
-        : (this.pesansearch = response.data.messages);
+        response.data.success == false
+          ? (this.pesansearch = response.data.messages)
+          : (this.pesansearch = response.data.messages);
 
-      this.keahlian = response.data.data;
-      console.log(this.keahlian);
+        this.keahlian = response.data.data;
+      } catch (error) {
+        console.log(error);
+        alert(error.response.status);
+      }
     },
 
     detail(id) {
